@@ -2,6 +2,8 @@
 
 Verified on 2026-09-11. This receipt covers the first ten directories requested by the maintainer. Submission acceptance, review approval, and public listing are tracked separately.
 
+The [distribution continuation tracker](distribution-follow-up-2026-09-11.md) records the remaining requested channels, new receipts, and specific retry conditions. Pending submissions below should be checked before any repeat submission.
+
 ## Published source
 
 - Repository: https://github.com/cucuwang/geoptimize
