@@ -63,8 +63,16 @@ JSON 是穩定的自動化介面。規則、證據分類與已知限制記錄於
 
 ## Agent Skills
 
+Claude Code
+
 ```bash
 claude plugin marketplace add cucuwang/geoptimize
+claude plugin install geoptimize@geoptimize
+```
+
+skills.sh
+
+```bash
 npx skills add cucuwang/geoptimize
 ```
 

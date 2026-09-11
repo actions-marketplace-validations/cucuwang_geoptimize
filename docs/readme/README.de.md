@@ -63,8 +63,16 @@ JSON ist die stabile Automatisierungsschnittstelle. Regeln, Nachweisklassen und 
 
 ## Agent Skills
 
+Claude Code
+
 ```bash
 claude plugin marketplace add cucuwang/geoptimize
+claude plugin install geoptimize@geoptimize
+```
+
+skills.sh
+
+```bash
 npx skills add cucuwang/geoptimize
 ```
 

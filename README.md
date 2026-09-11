@@ -315,6 +315,7 @@ The hook checks staged `.html`, `.htm`, `.md`, and `.mdx` content. Review the ba
 
 ```bash
 claude plugin marketplace add cucuwang/geoptimize
+claude plugin install geoptimize@geoptimize
 ```
 
 Or install the same reusable skills through the cross-agent Agent Skills CLI (skills.sh indexes installs from this command; there is no separate submit form):

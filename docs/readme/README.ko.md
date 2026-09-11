@@ -63,8 +63,16 @@ JSON은 안정적인 자동화 인터페이스입니다. 규칙, 증거 분류, 
 
 ## Agent Skills
 
+Claude Code
+
 ```bash
 claude plugin marketplace add cucuwang/geoptimize
+claude plugin install geoptimize@geoptimize
+```
+
+skills.sh
+
+```bash
 npx skills add cucuwang/geoptimize
 ```
 
