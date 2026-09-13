@@ -4,6 +4,8 @@
 
 前十個技能目錄的安裝驗證與收件證據見 [第一批紀錄](skill-directory-submissions-2026-09-11.md)。重用文案見 [submission copy](skill-directory-submission-copy.json)。
 
+> 最新讀回（2026-09-13 20:03 Asia/Taipei）已移至 [2026-09-13 續辦快照](distribution-follow-up-2026-09-13.md)。本檔保留 9/11 的收件與歷史狀態，更新判斷以該快照為準。
+
 ## 已送件與更新
 
 | 管道 | 操作與證據 | 當前結果與續辦條件 |

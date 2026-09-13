@@ -4,6 +4,8 @@ Verified on 2026-09-11. This receipt covers the first ten directories requested 
 
 The [distribution continuation tracker](distribution-follow-up-2026-09-11.md) records the remaining requested channels, new receipts, and specific retry conditions. Pending submissions below should be checked before any repeat submission.
 
+> Latest readback (2026-09-13 20:03 Asia/Taipei) is recorded in the [dated continuation snapshot](distribution-follow-up-2026-09-13.md). This file retains the 2026-09-11 receipts; completed entries must not be resubmitted.
+
 ## Published source
 
 - Repository: https://github.com/cucuwang/geoptimize
