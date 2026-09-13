@@ -71,6 +71,10 @@ jq -e '
   (.[0].files | map(.path) | index("dist/core/seo-experiments.js")) != null and
   (.[0].files | map(.path) | index("docs/release-v0.9.md")) != null and
   (.[0].files | map(.path) | index("docs/release-v0.10.md")) != null and
+  (.[0].files | map(.path) | index("docs/release-v0.11.md")) != null and
+  (.[0].files | map(.path) | index("docs/release-notes-v0.11.md")) != null and
+  (.[0].files | map(.path) | index("docs/interactive-cli.md")) != null and
+  (.[0].files | map(.path) | index("dist/cli/interactive.js")) != null and
   (.[0].files | map(.path) | index("docs/seo-experiment-ledger.md")) != null and
   (.[0].files | map(.path) | index("skills/seo-experiment-ledger/SKILL.md")) != null and
   (.[0].files | map(.path) | index("docs/readme/README.zh-TW.md")) != null and

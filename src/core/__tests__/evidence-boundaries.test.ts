@@ -109,7 +109,7 @@ describe('public metadata', () => {
     const action = await readFile(join(root, 'action.yml'), 'utf8');
     const compatibilityAction = await readFile(join(root, 'action/action.yml'), 'utf8');
 
-    expect(packageJson.version).toBe('0.10.0');
+    expect(packageJson.version).toBe('0.11.0');
     expect(pluginJson.version).toBe(packageJson.version);
     expect(marketplaceJson.metadata.version).toBe(packageJson.version);
     expect(cli).toContain(`.version('${packageJson.version}')`);
@@ -126,7 +126,7 @@ describe('public metadata', () => {
     expect(marketplaceJson.plugins[0].description).toContain('SEO experiments');
   });
 
-  it('keeps current user documentation aligned with the published version', async () => {
+  it('keeps release instructions aligned while preserving historical publication evidence', async () => {
     const packageJson = JSON.parse(await readFile(join(root, 'package.json'), 'utf8'));
     const version = packageJson.version as string;
     const [readme, roadmap, security, migration, sample, settings, openSsf] = await Promise.all([
@@ -139,17 +139,19 @@ describe('public metadata', () => {
       readFile(join(root, 'docs', 'openssf-best-practices.md'), 'utf8'),
     ]);
 
-    expect(readme).toContain(`Version ${version} is published`);
-    expect(roadmap).toContain(`Version ${version} is published`);
+    expect(readme).toContain(`Version ${version}`);
+    expect(readme).toContain(`releases/tag/v${version}`);
+    expect(roadmap).toContain(`Version ${version}`);
     expect(roadmap).not.toContain('Package version remains 0.9.0');
-    expect(security).toContain(`Version ${version} is the first release`);
+    expect(security).toContain('Version 0.10.0 is the first release');
     expect(migration).toContain(`geoptimize@${version}`);
     expect(migration).toContain(`installed version should be \`${version}\``);
-    expect(sample).toContain(`published \`geoptimize@${version}\` package`);
+    expect(sample).toContain(`geoptimize@${version}`);
+    expect(sample).toContain(`v${version}`);
     expect(sample).not.toContain('Until both artifacts exist');
     expect(settings).toContain('Release immutability is enabled');
     expect(settings).toContain('npm Trusted Publisher binds');
-    expect(openSsf).toContain(`${version} is public with npm OIDC provenance`);
+    expect(openSsf).toContain('0.10.0 is public with npm OIDC provenance');
   });
 
   it('keeps npm publisher metadata normalized and exposes every CLI alias', async () => {
