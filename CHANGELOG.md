@@ -4,10 +4,21 @@ All notable user-visible changes will be documented here. The project follows Se
 
 ## Unreleased
 
+### Added
+
+- Added a terminal menu for bare CLI invocations that scans a selected URL, file, or directory and saves a new offline HTML report.
+- Preserved explicit commands, JSON output, and non-interactive invocation behavior.
+
+### Security
+
+- Clarified how bundled skills handle untrusted page content, repositories, and scan reports within the approved task scope.
+
 ### Documentation
 
 - Updated current-state documentation after the verified v0.10.0 publication.
 - Aligned migration, maintainer-security, OpenSSF, Action sample, and plugin descriptions with the published release.
+- Completed both Claude Code installation steps in the English and translated guides and recorded directory submission results.
+- Replaced the unsupported hosted-platform price estimate with vendor-specific pricing wording.
 
 ## 0.10.0
 
