@@ -2,6 +2,8 @@
 
 本輪以公開 main `8e9dc073ae7d994906556035952642544dff695f` 建立隔離本機分支 `codex/follow-through-20260913`。這份交接供維護者決定下一步遠端操作，驗證細節見 [驗證紀錄](follow-through-validation-2026-09-13.md)。
 
+兩個 Node runtime 的完整候選驗證均通過 275 項測試，產出的 tarball SHA-256 相同；兩次 PTY 各 8 組情境也通過。
+
 ## 已完成的本機工作
 
 - 整合三筆既有安裝說明與曝光紀錄提交，並移除 README 未佐證的 hosted pricing 數字。
