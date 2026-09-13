@@ -2,7 +2,7 @@
 
 All notable user-visible changes will be documented here. The project follows Semantic Versioning after the v0.6 evidence baseline is released.
 
-## Unreleased
+## 0.11.0 (2026-09-13)
 
 ### Added
 
@@ -24,8 +24,8 @@ All notable user-visible changes will be documented here. The project follows Se
 
 ### Documentation
 
-- Updated current-state documentation after the verified v0.10.0 publication.
-- Aligned migration, maintainer-security, OpenSSF, Action sample, and plugin descriptions with the published release.
+- Updated installation and migration instructions for v0.11.0 while retaining historical release evidence.
+- Aligned CLI, plugin, and Action versions with v0.11.0.
 - Completed both Claude Code installation steps in the English and translated guides and recorded directory submission results.
 - Replaced the unsupported hosted-platform price estimate with vendor-specific pricing wording.
 

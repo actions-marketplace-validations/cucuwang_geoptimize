@@ -38,7 +38,7 @@ npx geoptimize audit https://example.com --json
 npx geoptimize audit-site https://example.com --max-pages 20 --json
 ```
 
-The next release adds a terminal menu for scanning a target and saving an HTML report. See [the interactive CLI guide](docs/interactive-cli.md) for development-checkout usage; published `0.10.0` uses the explicit commands above.
+Version 0.11.0 adds a guided terminal menu for scanning a target and saving an offline HTML report. See [the interactive CLI guide](docs/interactive-cli.md) for `npm install` and `npx` usage; explicit commands remain available for scripts and non-TTY environments.
 
 For measured Google Search experiments, initialize the separate SEO ledger:
 
@@ -201,7 +201,7 @@ node -e "const r=require('./geoptimize-report.json'); process.exit(r.overall.tot
 The [GitHub Marketplace Action](https://github.com/marketplace/actions/geoptimize-content-readiness-check) is advisory by default. It reports findings without blocking the workflow:
 
 ```yaml
-- uses: cucuwang/geoptimize@v0.10.0
+- uses: cucuwang/geoptimize@v0.11.0
   with:
     path: dist
 ```
@@ -209,7 +209,7 @@ The [GitHub Marketplace Action](https://github.com/marketplace/actions/geoptimiz
 Projects can explicitly choose blocking mode after accepting a baseline:
 
 ```yaml
-- uses: cucuwang/geoptimize@v0.10.0
+- uses: cucuwang/geoptimize@v0.11.0
   with:
     path: dist
     fail-on-low-score: 'true'
@@ -333,13 +333,13 @@ npx skills add cucuwang/geoptimize
 
 ## Project status
 
-Version 0.10.0 is published on [npm](https://www.npmjs.com/package/geoptimize) and [GitHub](https://github.com/cucuwang/geoptimize/releases/tag/v0.10.0). It adds a separate, evidence-bounded SEO experiment ledger while retaining the existing readiness score and audit contracts. Release acceptance and rollback are documented in [docs/release-v0.10.md](docs/release-v0.10.md); longer-term adoption work remains in [ROADMAP.md](ROADMAP.md).
+Version 0.11.0 adds a guided terminal menu for saving offline HTML reports, updates supported dependencies, and improves public release verification. The readiness score and existing audit contracts remain unchanged. See the [release notes](https://github.com/cucuwang/geoptimize/releases/tag/v0.11.0), [release runbook](docs/release-v0.11.md), and [roadmap](ROADMAP.md).
 
 Contributions are welcome. Rule changes require an evidence note and positive/negative fixtures; see [CONTRIBUTING.md](CONTRIBUTING.md). Report vulnerabilities through the process in [SECURITY.md](SECURITY.md).
 
 ## Release integrity and security maintenance
 
-The v0.10 trust-hardening and release path is documented in [the v0.10 runbook](docs/release-v0.10.md).
+The v0.11 release path is documented in [the v0.11 runbook](docs/release-v0.11.md). The v0.10 runbook remains the historical record for the verified v0.10.0 release.
 CI validates Node 22/24 tarballs, package contents and CLI/Action contracts; the
 release preparation exports SHA-256 checksums and an SPDX production-dependency SBOM.
 Repository settings and npm authorization remain explicit [maintainer gates](docs/maintainer-security-settings.md).

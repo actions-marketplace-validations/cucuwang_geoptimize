@@ -1,6 +1,6 @@
 {
   "name": "geoptimize",
-  "version": "0.10.0",
+  "version": "0.11.0",
   "description": "Deterministic content-readiness lint for static websites and documentation",
   "type": "module",
   "main": "./dist/core/index.js",
@@ -46,7 +46,9 @@
     "docs/openssf-best-practices.md",
     "docs/action-reproducibility.md",
     "docs/interactive-cli.md",
-    "scripts/verify-release-public.sh"
+    "scripts/verify-release-public.sh",
+    "docs/release-v0.11.md",
+    "docs/release-notes-v0.11.md"
   ],
   "scripts": {
     "build": "tsc",
