@@ -45,7 +45,8 @@
     "docs/maintainer-security-settings.md",
     "docs/openssf-best-practices.md",
     "docs/action-reproducibility.md",
-    "docs/interactive-cli.md"
+    "docs/interactive-cli.md",
+    "scripts/verify-release-public.sh"
   ],
   "scripts": {
     "build": "tsc",

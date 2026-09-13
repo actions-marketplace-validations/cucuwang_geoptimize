@@ -1,18 +1,18 @@
 # Verified upstream Action pins
 
-Resolved through official GitHub repositories on 2026-09-09. Annotated tag objects
+Resolved through official GitHub repositories on 2026-09-13. Annotated tag objects
 were dereferenced to commits; tag-object SHAs are not used as Action pins.
 
 | Action | Upstream tag | Full commit |
 | --- | --- | --- |
-| actions/checkout | v4.3.0 | 08eba0b27e820071cde6df949e0beb9ba4906955 |
-| actions/setup-node | v4.4.0 | 49933ea5288caeca8642d1e84afbd3f7d6820020 |
-| actions/upload-artifact | v4.6.2 | ea165f8d65b6e75b540449e92b4886f43607fa02 |
-| actions/download-artifact | v4.3.0 | d3f86a106a0bac45b974a628896c90dbdf5c8093 |
+| actions/checkout | v7.0.1 | 3d3c42e5aac5ba805825da76410c181273ba90b1 |
+| actions/setup-node | v7.0.0 | 820762786026740c76f36085b0efc47a31fe5020 |
+| actions/upload-artifact | v7.0.1 | 043fb46d1a93c77aae656e7c1c64a875d1fc6a0a |
+| actions/download-artifact | v8.0.1 | 3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c |
 | actions/dependency-review-action | v5.0.0 | a1d282b36b6f3519aa1f3fc636f609c47dddb294 |
-| github/codeql-action | v3, resolved on assessment date | 6f5948dfacef28e207b48d0905cf90c03365536d |
-| ossf/scorecard-action | v2.4.3 | 4eaacf0543bb3f2c246792bd56e8cdeffafb205a |
-| actions/attest-build-provenance | v3, resolved on assessment date | 977bb373ede98d70efdf65b84cb5f73e068dcc2a |
+| github/codeql-action | v4.37.9 | cdf488f595d80d6e07e03d4674febd5ab45fa938 |
+| ossf/scorecard-action | v2.4.4 | 2d1146689b8cda280b9bc96326124645441f03bc |
+| actions/attest-build-provenance | v4.2.2 | 4d101475d8b20a2381f78447822ac1eab6504dd8 |
 
 Recheck with `GET /repos/{owner}/{repo}/git/ref/tags/{tag}`. When object.type is
 `tag`, follow object.url until object.type is `commit`. Cross-check the official

@@ -9,6 +9,15 @@ All notable user-visible changes will be documented here. The project follows Se
 - Added a terminal menu for bare CLI invocations that scans a selected URL, file, or directory and saves a new offline HTML report.
 - Preserved explicit commands, JSON output, and non-interactive invocation behavior.
 
+### Changed
+
+- Updated Puppeteer Core, Chalk, Commander and Vitest within the existing Node 22.12/24 support range; retained Node 24 type definitions.
+- Updated verified GitHub Action pins and aligned the compatibility Action and sample workflow.
+
+### Fixed
+
+- Added bounded npm visibility polling and verification against the archived release commit and lockfile, without repeating publication.
+
 ### Security
 
 - Clarified how bundled skills handle untrusted page content, repositories, and scan reports within the approved task scope.
