@@ -13,6 +13,7 @@ import { generate } from '../core/generator.js';
 import { detectAvailableCLIs, scoreWithAllAvailable } from '../core/external-scorers.js';
 import { mergeScores } from '../core/merger.js';
 import { auditPath } from '../core/static-audit.js';
+import { resolveTarget, runInteractive, shouldLaunchInteractive } from './interactive.js';
 import {
   addSeoQuery,
   initializeSeoExperiments,
@@ -26,7 +27,7 @@ import {
   type SeoObservationSource,
   type SeoReviewOutcome,
 } from '../core/seo-experiments.js';
-import type { AuditReport, AuditStatus, SiteAuditReport, ScanReport, MultiAiReport, DimensionScores, ScanTarget, SiteInfo, AiScorerResult } from '../core/types.js';
+import type { AuditReport, AuditStatus, SiteAuditReport, ScanReport, MultiAiReport, DimensionScores, SiteInfo, AiScorerResult } from '../core/types.js';
 
 const HOOK_BEGIN_MARKER = '# BEGIN geoptimize';
 const HOOK_END_MARKER = '# END geoptimize';
@@ -637,7 +638,16 @@ hookCmd
     }
   });
 
-program.parse();
+if (shouldLaunchInteractive(process.argv.slice(2), Boolean(process.stdin.isTTY), Boolean(process.stdout.isTTY))) {
+  void runInteractive().then((result) => {
+    if (result.status === 'error') process.exitCode = 1;
+  }).catch((error) => {
+    console.error(chalk.red(`Error: ${(error as Error).message}`));
+    process.exitCode = 1;
+  });
+} else {
+  program.parse();
+}
 
 // ── Helpers ────────────────────────────────────────────────────────
 
@@ -677,29 +687,6 @@ function ensureHookHasShebang(content: string): string {
 
 function escapeRegExp(value: string): string {
   return value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-}
-
-function resolveTarget(target: string, isDir?: boolean): ScanTarget {
-  if (isDir) {
-    return { type: 'directory', path: target };
-  }
-  if (target.startsWith('http://') || target.startsWith('https://')) {
-    return { type: 'url', path: target };
-  }
-  const extension = extname(target).toLowerCase();
-  if (['.html', '.htm', '.md', '.mdx'].includes(extension)) {
-    return { type: 'file', path: target };
-  }
-  // Bare domain (contains a dot, no path separator) → treat as URL
-  if (target.includes('.') && !target.includes('/') && !target.includes('\\')) {
-    return { type: 'url', path: `https://${target}` };
-  }
-  // Looks like a local path — hint the user
-  if (target.startsWith('./') || target.startsWith('/') || target.startsWith('..')) {
-    throw new Error(`"${target}" looks like a local path. Use --dir flag: npx geoptimize scan ${target} --dir`);
-  }
-  // Fallback: assume URL with https
-  return { type: 'url', path: `https://${target}` };
 }
 
 function optionalNumber(value: string | undefined, label: string): number | null {

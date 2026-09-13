@@ -44,7 +44,9 @@
     "docs/assets/",
     "docs/maintainer-security-settings.md",
     "docs/openssf-best-practices.md",
-    "docs/action-reproducibility.md"
+    "docs/action-reproducibility.md",
+    "docs/interactive-cli.md",
+    "scripts/verify-release-public.sh"
   ],
   "scripts": {
     "build": "tsc",
@@ -81,16 +83,16 @@
     "node": ">=22.12.0"
   },
   "dependencies": {
-    "chalk": "^5.3.0",
-    "puppeteer-core": "^25.7.0",
+    "chalk": "^6.0.0",
+    "puppeteer-core": "^25.10.0",
     "cheerio": "^1.2.0",
-    "commander": "^12.0.0",
+    "commander": "^15.0.0",
     "gray-matter": "^4.0.3"
   },
   "devDependencies": {
     "@types/node": "^24.0.0",
     "fast-check": "4.10.0",
     "typescript": "^5.4.0",
-    "vitest": "^4.1.10"
+    "vitest": "^5.0.0"
   }
 }

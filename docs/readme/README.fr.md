@@ -63,8 +63,16 @@ JSON est l'interface d'automatisation stable. Les règles, les classes de preuve
 
 ## Agent Skills
 
+Claude Code
+
 ```bash
 claude plugin marketplace add cucuwang/geoptimize
+claude plugin install geoptimize@geoptimize
+```
+
+skills.sh
+
+```bash
 npx skills add cucuwang/geoptimize
 ```
 

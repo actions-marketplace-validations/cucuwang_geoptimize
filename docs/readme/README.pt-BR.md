@@ -63,8 +63,16 @@ JSON é a interface estável de automação. As regras, classes de evidência e 
 
 ## Agent Skills
 
+Claude Code
+
 ```bash
 claude plugin marketplace add cucuwang/geoptimize
+claude plugin install geoptimize@geoptimize
+```
+
+skills.sh
+
+```bash
 npx skills add cucuwang/geoptimize
 ```
 

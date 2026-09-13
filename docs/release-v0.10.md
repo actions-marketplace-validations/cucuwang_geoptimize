@@ -123,10 +123,10 @@ or adjust dist-tags only with authorization, preserving audit evidence and fixin
 forward. An advanced main branch requires a new release decision, not bypassing the
 exact-main source gate.
 
-Public readback requires the release commit and verified candidate hash:
+Public readback from a repository checkout requires the release commit and verified candidate hash. The wrapper archives that commit and uses its original lockfile, so later dependency updates do not affect verification. Only temporary npm visibility states are retried; artifact, identity, and tag mismatches fail immediately:
 
 ```bash
-bash scripts/verify-release-v0.8.sh <verified-release-commit> <verified-package-sha256>
+bash scripts/verify-release-public.sh <verified-release-commit> <verified-package-sha256>
 ```
 
 If rollback is authorized, preserve the published version and protected tag,
