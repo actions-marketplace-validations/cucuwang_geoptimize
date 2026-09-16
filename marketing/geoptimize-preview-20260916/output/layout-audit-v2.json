@@ -1,0 +1,14 @@
+{
+  "frames": 900,
+  "textBoxes": 10354,
+  "transitionNames": [
+    "circle-reveal",
+    "terminal-open",
+    "horizontal-push",
+    "diagonal-sweep",
+    "beat-cut"
+  ],
+  "collisions": [],
+  "unsafe": [],
+  "scope": "Actual font glyph bounds transformed into canvas coordinates, with authored entrance clips. Text pairs are checked within their own scene; transition masks intentionally replace scenes. Decorative labels on overlapping paper illustrations excluded."
+}
