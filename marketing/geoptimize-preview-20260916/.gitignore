@@ -1,0 +1,6 @@
+work/
+assets/soundtrack.wav
+output/*.wav
+output/silent.mp4
+output/stills/
+output/contact-sheet.jpg
