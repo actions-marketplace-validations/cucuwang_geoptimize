@@ -14,6 +14,10 @@
 
 `geoptimize` is a deterministic content-readiness lint for static websites and documentation. It checks reproducible properties such as document structure, sourced quantitative claims, structured-data hygiene, indexing controls, metadata quality, and repetitive wording — locally, in CI, or pre-commit.
 
+https://github.com/user-attachments/assets/5dafd888-92c9-428b-b372-62864c58059a
+
+30-second introduction · [Download the MP4](https://github.com/cucuwang/geoptimize/raw/refs/heads/main/marketing/geoptimize-preview-20260916/output/geoptimize-preview-v2.mp4) · [Video source and credits](https://github.com/cucuwang/geoptimize/tree/main/marketing/geoptimize-preview-20260916)
+
 [![geoptimize visual report with five readiness scores and site health charts](docs/assets/report-demo.png)](docs/assets/report-demo.html)
 
 [Open the offline example](docs/assets/report-demo.html) · [After improvements](docs/assets/report-demo-after.html)

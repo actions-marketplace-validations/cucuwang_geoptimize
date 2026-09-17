@@ -4,6 +4,8 @@
 spring motion, a moving document scan and an original instrumental soundtrack.
 The design retains geoptimize's dark ground and mint-green accent.
 
+https://github.com/user-attachments/assets/5dafd888-92c9-428b-b372-62864c58059a
+
 [Watch or download the current MP4](output/geoptimize-preview-v2.mp4) ·
 [First preview](output/geoptimize-preview-v1.mp4) ·
 [Attribution and licenses](ATTRIBUTION.md)
