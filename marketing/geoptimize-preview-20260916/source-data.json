@@ -1,0 +1,51 @@
+{
+  "sourceCommit": "8872148f444a51177af75cb03ee861b8326f1787",
+  "sourceUrls": {
+    "mainCommit": "https://api.github.com/repos/cucuwang/geoptimize/commits/main",
+    "commitRecord": "https://api.github.com/repos/cucuwang/geoptimize/commits/8872148f444a51177af75cb03ee861b8326f1787",
+    "readme": "https://raw.githubusercontent.com/cucuwang/geoptimize/8872148f444a51177af75cb03ee861b8326f1787/README.md",
+    "beforeReport": "https://raw.githubusercontent.com/cucuwang/geoptimize/8872148f444a51177af75cb03ee861b8326f1787/docs/assets/report-demo.html",
+    "afterReport": "https://raw.githubusercontent.com/cucuwang/geoptimize/8872148f444a51177af75cb03ee861b8326f1787/docs/assets/report-demo-after.html",
+    "fixtureScript": "https://raw.githubusercontent.com/cucuwang/geoptimize/8872148f444a51177af75cb03ee861b8326f1787/scripts/prepare-metrics-demo.mjs"
+  },
+  "synthetic": true,
+  "exampleSite": {
+    "origin": "https://demo.example",
+    "pages": [
+      "https://demo.example/",
+      "https://demo.example/guide",
+      "https://demo.example/contact"
+    ],
+    "readinessPagesAssessed": 3,
+    "siteAudit": {
+      "crawledPages": 3,
+      "maxPages": 20,
+      "source": "response-html",
+      "queueCompleted": true
+    }
+  },
+  "before": {
+    "total": 53,
+    "dimensions": [
+      { "name": "Structure", "value": 9, "max": 25 },
+      { "name": "Citability", "value": 11, "max": 25 },
+      { "name": "Schema", "value": 20, "max": 20 },
+      { "name": "AI Metadata", "value": 5, "max": 15 },
+      { "name": "Content Density", "value": 8, "max": 15 }
+    ],
+    "missingCanonical": 3,
+    "duplicateTitleGroups": 1
+  },
+  "after": {
+    "total": 97,
+    "dimensions": [
+      { "name": "Structure", "value": 25, "max": 25 },
+      { "name": "Citability", "value": 25, "max": 25 },
+      { "name": "Schema", "value": 20, "max": 20 },
+      { "name": "AI Metadata", "value": 15, "max": 15 },
+      { "name": "Content Density", "value": 12, "max": 15 }
+    ],
+    "missingCanonical": 0,
+    "duplicateTitleGroups": 0
+  }
+}

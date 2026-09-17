@@ -1,0 +1,50 @@
+{
+  "artifact": "geoptimize-preview-v2.mp4",
+  "media": {
+    "programs": [],
+    "stream_groups": [],
+    "streams": [
+      {
+        "codec_name": "h264",
+        "codec_type": "video",
+        "width": 1920,
+        "height": 1080,
+        "avg_frame_rate": "30/1",
+        "nb_read_frames": "900"
+      },
+      {
+        "codec_name": "aac",
+        "codec_type": "audio",
+        "sample_rate": "48000",
+        "channels": 2,
+        "avg_frame_rate": "0/0",
+        "nb_read_frames": "1407"
+      }
+    ],
+    "format": {
+      "duration": "30.000000",
+      "size": "1926673"
+    }
+  },
+  "sha256": "80a2f2ce50e850cdf31a5abfcb33b5fdbb0f7bcc75b55e6b1b22343123a74ab1",
+  "audioIdenticalToV1": true,
+  "v1Preserved": true,
+  "layout": {
+    "frames": 900,
+    "textBoxes": 10354,
+    "collisions": 0,
+    "unsafe": 0,
+    "transitions": [
+      "circle-reveal",
+      "terminal-open",
+      "horizontal-push",
+      "diagonal-sweep",
+      "beat-cut"
+    ],
+    "report": "layout-audit-v2.json"
+  },
+  "browserPageErrors": [],
+  "deterministicFrameReadback": true,
+  "visualReview": "Representative frames across all five transitions, title entrances and settled text; fixed the initial y descender clipping.",
+  "validationScope": "Actual font glyph bounds transformed into canvas coordinates, with authored entrance clips. Text pairs are checked within their own scene; transition masks intentionally replace scenes. Decorative labels on overlapping paper illustrations excluded."
+}

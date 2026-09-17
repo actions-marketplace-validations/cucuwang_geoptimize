@@ -1,0 +1,41 @@
+{
+  "artifact": "geoptimize-preview-v1.mp4",
+  "media": {
+    "programs": [],
+    "stream_groups": [],
+    "streams": [
+      {
+        "codec_name": "h264",
+        "codec_type": "video",
+        "width": 1920,
+        "height": 1080,
+        "avg_frame_rate": "30/1",
+        "nb_read_frames": "900"
+      },
+      {
+        "codec_name": "aac",
+        "codec_type": "audio",
+        "sample_rate": "48000",
+        "channels": 2,
+        "avg_frame_rate": "0/0",
+        "nb_read_frames": "1407"
+      }
+    ],
+    "format": {
+      "duration": "30.000000",
+      "size": "2179953"
+    }
+  },
+  "integratedLufs": -18.1,
+  "audioPeakDbfs": -3.9,
+  "sha256": "3fd281a12b4878146ae536c41e18e5ecec3c982647335e599858f5ffa2eb31db",
+  "frameRender": {
+    "frames": 900,
+    "deterministicReadback": true,
+    "browserPageErrors": [],
+    "representativeFramesReviewed": 14
+  },
+  "sourceCommit": "8872148f444a51177af75cb03ee861b8326f1787",
+  "validationScope": "Encoded video decoded successfully; fixture data checked against pinned public source. CLI was not executed in this task.",
+  "designDetector": "Degraded regex-only mode; no findings. Canvas visual review performed separately."
+}
