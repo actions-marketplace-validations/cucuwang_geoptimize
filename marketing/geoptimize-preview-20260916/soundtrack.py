@@ -2,7 +2,7 @@
 """Render the original GeoOptimize preview soundtrack.
 
 Reproducibility: run this file with
-`/Users/te-shuwang/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/python3 soundtrack.py`
+`python3 soundtrack.py` with NumPy installed
 from this directory.  The fixed seed, 48 kHz sample rate, 30.0-second length,
 and all synthesis parameters are defined below; no downloaded samples or
 external sound libraries are used.  It writes `assets/soundtrack.wav` as

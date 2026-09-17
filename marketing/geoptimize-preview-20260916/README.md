@@ -4,6 +4,10 @@
 spring motion, a moving document scan and an original instrumental soundtrack.
 The design retains geoptimize's dark ground and mint-green accent.
 
+[Watch or download the current MP4](output/geoptimize-preview-v2.mp4) ·
+[First preview](output/geoptimize-preview-v1.mp4) ·
+[Attribution and licenses](ATTRIBUTION.md)
+
 The intended viewer is a developer maintaining a static website or documentation.
 The film introduces a first local scan and ends with the npm installation command.
 It uses verified public demonstration data and makes no search-outcome claims.
