@@ -5,6 +5,10 @@ updates:
     schedule:
       interval: weekly
     open-pull-requests-limit: 5
+    ignore:
+      # Node 26 is a preview runtime; keep the current Node 24 type contract.
+      - dependency-name: '@types/node'
+        versions: ['26.x']
     groups:
       development:
         dependency-type: development

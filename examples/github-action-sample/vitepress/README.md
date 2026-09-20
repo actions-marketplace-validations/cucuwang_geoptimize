@@ -2,7 +2,7 @@
 
 This is a copyable advisory-mode workflow for an existing npm-based VitePress project. It is not a standalone runnable site fixture.
 
-Copy this file to `.github/workflows/geoptimize.yml` at the repository root of your project.
+Copy the [sample workflow](.github/workflows/geoptimize.yml) to `.github/workflows/geoptimize.yml` at the repository root of your project.
 
 ## Prerequisites
 
