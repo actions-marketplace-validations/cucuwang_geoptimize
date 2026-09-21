@@ -21,6 +21,14 @@ Start from an issue labeled `good first issue`. Comment on the issue before open
 
 For scoring-rule work, follow [docs/methodology.md](docs/methodology.md): every rule change needs an evidence class plus positive, negative, and false-positive fixtures. Pull requests that claim ranking, citation, or AI-visibility outcomes will not be merged.
 
+### Adding a scoring rule
+
+Before changing scoring behavior, read [docs/methodology.md](docs/methodology.md) and choose the applicable documented A–D evidence class. Record a current primary source for evidence-backed behavior or an explicit heuristic rationale for a content heuristic, including the rule's scope and known false positives. Class D experiments are informational only and earn no readiness points; do not add zero-weight Class D experiments to the scored fixture corpus.
+
+Create a stable rule ID in [`src/core/rules.ts`](src/core/rules.ts), implement the rule there, and register it in the exported `allRules` array. In [`fixtures/v0.6/rule-corpus.ts`](fixtures/v0.6/rule-corpus.ts), add cases under the matching ID: `positive`, `negative`, and `boundary` for the false-positive boundary. Give each case a purpose and expected `score`, `issues`, and `suggestions`; the [release-contract tests](src/core/__tests__/release-contract.test.ts) cover every scored rule and enforce these expectations through the parser boundary.
+
+Record expected JSON/output changes, score-contract compatibility, and any migration impact in the pull request. Keep claims within the documented scope and do not present a rule or score as evidence of ranking, citation, indexing, or adoption outcomes.
+
 ## Pull requests
 
 Keep each pull request focused. Include:
