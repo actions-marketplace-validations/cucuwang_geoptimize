@@ -1,5 +1,7 @@
 # geoptimize
 
+[English](README.md) | [繁體中文](docs/readme/README.zh-TW.md) | [简体中文](docs/readme/README.zh-CN.md) | [日本語](docs/readme/README.ja.md) | [한국어](docs/readme/README.ko.md) | [Español](docs/readme/README.es.md) | [Français](docs/readme/README.fr.md) | [Deutsch](docs/readme/README.de.md) | [Português do Brasil](docs/readme/README.pt-BR.md)
+
 **Formerly aeoptimize.** This is the same project, continued under the `geoptimize` name from version 0.8.0. Existing `aeoptimize` users can follow the [migration guide](https://github.com/cucuwang/geoptimize/blob/main/docs/migrating-from-aeoptimize.md).
 
 [Current npm package](https://www.npmjs.com/package/geoptimize) · [Legacy npm package and download history](https://www.npmjs.com/package/aeoptimize) · [Last release under the old name](https://github.com/cucuwang/geoptimize/releases/tag/v0.7.0)
@@ -11,6 +13,10 @@
 **AI crawlers read your pages before humans do. Lint them like code.**
 
 `geoptimize` is a deterministic content-readiness lint for static websites and documentation. It checks reproducible properties such as document structure, sourced quantitative claims, structured-data hygiene, indexing controls, metadata quality, and repetitive wording — locally, in CI, or pre-commit.
+
+https://github.com/user-attachments/assets/5dafd888-92c9-428b-b372-62864c58059a
+
+30-second introduction · [Download the MP4](https://github.com/cucuwang/geoptimize/raw/refs/heads/main/marketing/geoptimize-preview-20260916/output/geoptimize-preview-v2.mp4) · [Video source and credits](https://github.com/cucuwang/geoptimize/tree/main/marketing/geoptimize-preview-20260916)
 
 [![geoptimize visual report with five readiness scores and site health charts](docs/assets/report-demo.png)](docs/assets/report-demo.html)
 
@@ -35,6 +41,18 @@ npx geoptimize scan ./dist --dir --json
 npx geoptimize audit https://example.com --json
 npx geoptimize audit-site https://example.com --max-pages 20 --json
 ```
+
+Version 0.11.0 adds a guided terminal menu for scanning a target and saving an offline HTML report. See [the interactive CLI guide](docs/interactive-cli.md) for `npm install` and `npx` usage; explicit commands remain available for scripts and non-TTY environments.
+
+For measured Google Search experiments, initialize the separate SEO ledger:
+
+```bash
+geo seo init .
+geo seo add . --keyword "energy management system integration" --page /services/ems/ --priority high
+geo seo status .
+```
+
+The ledger allows one monitoring experiment at a time and preserves fixed query, page, country, device, search type, and date-window evidence. Start its seven-day review period only after the changed page is publicly deployed and read back. The ledger does not affect the readiness score. See [SEO experiment ledger](docs/seo-experiment-ledger.md).
 
 Example output:
 
@@ -171,7 +189,7 @@ also accepts an empty output directory for inspecting readiness and site JSON re
 | Deterministic | Yes — versioned rules, fixture-tested | Partially | No — model output varies run to run |
 | Runs where | Local CLI, CI, pre-commit hook, Vite/Next plugins | Browser / DevTools | Vendor cloud |
 | Blocks regressions in CI | Yes, via a stable `--json` contract | Possible with extra wiring | Rarely |
-| Cost | Free, MIT | Free | Typically $95+/mo |
+| Cost | Free, MIT | Free | Varies by vendor |
 
 Visibility trackers answer "did rankings change?". geoptimize answers the question you can act on in a pull request: "is this page ready?". The two compose rather than compete.
 
@@ -187,7 +205,7 @@ node -e "const r=require('./geoptimize-report.json'); process.exit(r.overall.tot
 The [GitHub Marketplace Action](https://github.com/marketplace/actions/geoptimize-content-readiness-check) is advisory by default. It reports findings without blocking the workflow:
 
 ```yaml
-- uses: cucuwang/geoptimize@v0.9.0
+- uses: cucuwang/geoptimize@v0.11.0
   with:
     path: dist
 ```
@@ -195,14 +213,14 @@ The [GitHub Marketplace Action](https://github.com/marketplace/actions/geoptimiz
 Projects can explicitly choose blocking mode after accepting a baseline:
 
 ```yaml
-- uses: cucuwang/geoptimize@v0.9.0
+- uses: cucuwang/geoptimize@v0.11.0
   with:
     path: dist
     fail-on-low-score: 'true'
     min-score: '60'
 ```
 
-The Action exposes `score` and `report` outputs in both modes. Its release is reproducible only when the Action tag and matching npm package version both exist. Before pinning a version, verify both artifacts; if either is missing, use the CLI directly.
+The Action exposes `score` and `report` outputs in both modes. Its default selects an exact npm package version; transitive dependencies are resolved at install time. Verify the Action tag and matching npm package before pinning. See the [Action reproducibility decision](docs/action-reproducibility.md) for the remaining dependency-resolution boundary.
 
 A copyable advisory workflow and controlled input are available in the [end-to-end Action sample](examples/github-action-sample/README.md).
 
@@ -303,6 +321,7 @@ The hook checks staged `.html`, `.htm`, `.md`, and `.mdx` content. Review the ba
 
 ```bash
 claude plugin marketplace add cucuwang/geoptimize
+claude plugin install geoptimize@geoptimize
 ```
 
 Or install the same reusable skills through the cross-agent Agent Skills CLI (skills.sh indexes installs from this command; there is no separate submit form):
@@ -314,12 +333,22 @@ npx skills add cucuwang/geoptimize
 - `/geo-scan` — deterministic readiness audit with optional experimental review
 - `/geo-generate` — preview optional discovery artifacts
 - `/geo-transform` — propose content edits without inventing claims
+- `/seo-experiment-ledger` — maintain one evidence-bounded search experiment
 
 ## Project status
 
-Version 0.9 adds site metrics, offline visual reports, detailed rule evidence and baseline comparisons while retaining the existing scoring contract. Release acceptance and rollback are documented in [docs/release-v0.9.md](docs/release-v0.9.md); longer-term adoption work remains in [ROADMAP.md](ROADMAP.md).
+Version 0.11.0 adds a guided terminal menu for saving offline HTML reports, updates supported dependencies, and improves public release verification. The readiness score and existing audit contracts remain unchanged. See the [release notes](https://github.com/cucuwang/geoptimize/releases/tag/v0.11.0), [release runbook](docs/release-v0.11.md), and [roadmap](ROADMAP.md).
 
 Contributions are welcome. Rule changes require an evidence note and positive/negative fixtures; see [CONTRIBUTING.md](CONTRIBUTING.md). Report vulnerabilities through the process in [SECURITY.md](SECURITY.md).
+
+## Release integrity and security maintenance
+
+The v0.11 release path is documented in [the v0.11 runbook](docs/release-v0.11.md). The v0.10 runbook remains the historical record for the verified v0.10.0 release.
+CI validates Node 22/24 tarballs, package contents and CLI/Action contracts; the
+release preparation exports SHA-256 checksums and an SPDX production-dependency SBOM.
+Repository settings and npm authorization remain explicit [maintainer gates](docs/maintainer-security-settings.md).
+[OpenSSF Passing preparation](docs/openssf-best-practices.md) records outstanding
+verification. Scorecard/Best Practices badges will be added only after real results exist.
 
 ## License
 

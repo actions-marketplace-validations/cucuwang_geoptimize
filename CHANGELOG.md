@@ -2,6 +2,53 @@
 
 All notable user-visible changes will be documented here. The project follows Semantic Versioning after the v0.6 evidence baseline is released.
 
+## 0.11.0 (2026-09-13)
+
+### Added
+
+- Added a terminal menu for bare CLI invocations that scans a selected URL, file, or directory and saves a new offline HTML report.
+- Preserved explicit commands, JSON output, and non-interactive invocation behavior.
+
+### Changed
+
+- Updated Puppeteer Core, Chalk, Commander and Vitest within the existing Node 22.12/24 support range; retained Node 24 type definitions.
+- Updated verified GitHub Action pins and aligned the compatibility Action and sample workflow.
+
+### Fixed
+
+- Added bounded npm visibility polling and verification against the archived release commit and lockfile, without repeating publication.
+
+### Security
+
+- Clarified how bundled skills handle untrusted page content, repositories, and scan reports within the approved task scope.
+
+### Documentation
+
+- Updated installation and migration instructions for v0.11.0 while retaining historical release evidence.
+- Aligned CLI, plugin, and Action versions with v0.11.0.
+- Completed both Claude Code installation steps in the English and translated guides and recorded directory submission results.
+- Replaced the unsupported hosted-platform price estimate with vendor-specific pricing wording.
+
+## 0.10.0
+
+### Added
+
+- Added `geo seo` commands for versioned query, observation, and experiment ledgers.
+- Added fixed query-segment evidence, one-experiment-at-a-time selection, and a seven-day post-publication review cooldown.
+- Added a reusable SEO experiment-ledger skill and workflow documentation.
+- Added concise README guides in Traditional Chinese, Simplified Chinese, Japanese, Korean, Spanish, French, German, and Brazilian Portuguese.
+
+### Compatibility
+
+- Kept the deterministic content-readiness score and existing audit JSON contracts unchanged.
+- Kept Search Console authentication and search-result collection outside the CLI; observations remain explicit user-supplied evidence.
+
+### Security
+
+- Added a SHA-pinned, least-privilege CI and OIDC release pipeline.
+- Added verified tarball export with checksums, an SPDX SBOM, and attestation support.
+- Documented maintainer settings, release recovery, and current OpenSSF gaps.
+
 ## 0.9.0
 
 ### Added

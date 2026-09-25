@@ -13,7 +13,21 @@ import { generate } from '../core/generator.js';
 import { detectAvailableCLIs, scoreWithAllAvailable } from '../core/external-scorers.js';
 import { mergeScores } from '../core/merger.js';
 import { auditPath } from '../core/static-audit.js';
-import type { AuditReport, AuditStatus, SiteAuditReport, ScanReport, MultiAiReport, DimensionScores, ScanTarget, SiteInfo, AiScorerResult } from '../core/types.js';
+import { resolveTarget, runInteractive, shouldLaunchInteractive } from './interactive.js';
+import {
+  addSeoQuery,
+  initializeSeoExperiments,
+  loadSeoExperiments,
+  recordSeoObservation,
+  reviewSeoExperiment,
+  selectSeoExperimentCandidate,
+  startSeoExperiment,
+  summarizeSeoExperiments,
+  type SeoPriority,
+  type SeoObservationSource,
+  type SeoReviewOutcome,
+} from '../core/seo-experiments.js';
+import type { AuditReport, AuditStatus, SiteAuditReport, ScanReport, MultiAiReport, DimensionScores, SiteInfo, AiScorerResult } from '../core/types.js';
 
 const HOOK_BEGIN_MARKER = '# BEGIN geoptimize';
 const HOOK_END_MARKER = '# END geoptimize';
@@ -23,7 +37,7 @@ const program = new Command();
 program
   .name('geoptimize')
   .description('Deterministic content-readiness lint for websites and documentation')
-  .version('0.9.0');
+  .version('0.11.0');
 
 // ── scan command ───────────────────────────────────────────────────
 
@@ -334,6 +348,174 @@ program
     }
   });
 
+// ── seo command ───────────────────────────────────────────────────
+
+const seoCmd = program
+  .command('seo')
+  .description('Track evidence-bounded SEO ranking experiments without changing readiness scores');
+
+seoCmd
+  .command('init <repository>')
+  .description('Create the versioned SEO experiment ledger in data/seo')
+  .action(async (repository: string) => {
+    try {
+      await initializeSeoExperiments(repository);
+      console.log(`SEO experiment ledger initialized in ${join(repository, 'data', 'seo')}`);
+    } catch (error) {
+      console.error(`Error: ${(error as Error).message}`);
+      process.exitCode = 1;
+    }
+  });
+
+seoCmd
+  .command('add <repository>')
+  .description('Add one exact query and target page to the ledger')
+  .requiredOption('--keyword <text>', 'Exact query to track')
+  .requiredOption('--page <path>', 'Target path or canonical URL')
+  .option('--priority <priority>', 'high, medium, or low', 'medium')
+  .action(async (repository: string, options: { keyword: string; page: string; priority: SeoPriority }) => {
+    try {
+      const query = await addSeoQuery(repository, {
+        keyword: options.keyword, targetPath: options.page, priority: options.priority,
+      });
+      console.log(JSON.stringify(query, null, 2));
+    } catch (error) {
+      console.error(`Error: ${(error as Error).message}`);
+      process.exitCode = 1;
+    }
+  });
+
+seoCmd
+  .command('record <repository>')
+  .description('Append one fixed-window GSC or observed SERP ranking measurement')
+  .requiredOption('--keyword <text>', 'Exact query')
+  .requiredOption('--page <path>', 'Target path or canonical URL')
+  .requiredOption('--source <source>', 'gsc or serp')
+  .requiredOption('--start-date <date>', 'Measurement start date, YYYY-MM-DD')
+  .requiredOption('--end-date <date>', 'Measurement end date, YYYY-MM-DD')
+  .requiredOption('--country <country>', 'Fixed country segment, such as TWN')
+  .requiredOption('--device <device>', 'Fixed device segment, such as DESKTOP')
+  .option('--search-type <type>', 'Search type segment', 'web')
+  .option('--position <number>', 'Average GSC position or observed organic result position')
+  .option('--clicks <number>', 'GSC clicks')
+  .option('--impressions <number>', 'GSC impressions')
+  .option('--observed-at <timestamp>', 'ISO timestamp for the observation')
+  .action(async (repository: string, options: {
+    keyword: string; page: string; source: SeoObservationSource; startDate: string; endDate: string;
+    country: string; device: string; searchType: string; position?: string; clicks?: string;
+    impressions?: string; observedAt?: string;
+  }) => {
+    try {
+      const observation = await recordSeoObservation(repository, {
+        keyword: options.keyword,
+        targetPath: options.page,
+        source: options.source,
+        startDate: options.startDate,
+        endDate: options.endDate,
+        country: options.country,
+        device: options.device,
+        searchType: options.searchType,
+        position: optionalNumber(options.position, 'position'),
+        clicks: optionalNumber(options.clicks, 'clicks'),
+        impressions: optionalNumber(options.impressions, 'impressions'),
+        observedAt: options.observedAt,
+      });
+      console.log(JSON.stringify(observation, null, 2));
+    } catch (error) {
+      console.error(`Error: ${(error as Error).message}`);
+      process.exitCode = 1;
+    }
+  });
+
+seoCmd
+  .command('select <repository>')
+  .description('Select exactly one eligible keyword using recorded evidence and priority')
+  .option('--json', 'Output JSON')
+  .action(async (repository: string, options: { json?: boolean }) => {
+    try {
+      const candidate = selectSeoExperimentCandidate(await loadSeoExperiments(repository));
+      if (options.json) {
+        console.log(JSON.stringify(candidate, null, 2));
+      } else if (!candidate) {
+        console.log('No query selected. An experiment may be monitoring, every query may be completed, or the ledger may be empty.');
+      } else {
+        console.log(`${candidate.query.keyword} -> ${candidate.query.targetPath}`);
+        console.log(candidate.reason);
+      }
+    } catch (error) {
+      console.error(`Error: ${(error as Error).message}`);
+      process.exitCode = 1;
+    }
+  });
+
+seoCmd
+  .command('start <repository>')
+  .description('Record one publicly deployed page experiment and begin its seven-day cooldown')
+  .requiredOption('--keyword <text>', 'The currently selected exact query')
+  .requiredOption('--intent <text>', 'Who searched and what they needed')
+  .requiredOption('--gap <text>', 'Observed gap against that need')
+  .requiredOption('--change <text>', 'Specific completed page change')
+  .option('--date <date>', 'Verified publication date, YYYY-MM-DD')
+  .action(async (repository: string, options: { keyword: string; intent: string; gap: string; change: string; date?: string }) => {
+    try {
+      const experiment = await startSeoExperiment(repository, {
+        keyword: options.keyword,
+        searchIntent: options.intent,
+        gap: options.gap,
+        change: options.change,
+        date: options.date,
+      });
+      console.log(JSON.stringify(experiment, null, 2));
+    } catch (error) {
+      console.error(`Error: ${(error as Error).message}`);
+      process.exitCode = 1;
+    }
+  });
+
+seoCmd
+  .command('review <repository>')
+  .description('Review a due experiment against a matching post-action observation')
+  .requiredOption('--keyword <text>', 'Exact query under review')
+  .requiredOption('--outcome <outcome>', 'goal_met, improved, unchanged, or declined')
+  .requiredOption('--observation <id>', 'Matching observation ID')
+  .option('--note <text>', 'Short evidence note')
+  .option('--date <date>', 'Review date, YYYY-MM-DD')
+  .action(async (repository: string, options: { keyword: string; outcome: SeoReviewOutcome; observation: string; note?: string; date?: string }) => {
+    try {
+      const experiment = await reviewSeoExperiment(repository, {
+        keyword: options.keyword,
+        outcome: options.outcome,
+        observationId: options.observation,
+        note: options.note,
+        date: options.date,
+      });
+      console.log(JSON.stringify(experiment, null, 2));
+    } catch (error) {
+      console.error(`Error: ${(error as Error).message}`);
+      process.exitCode = 1;
+    }
+  });
+
+seoCmd
+  .command('status <repository>')
+  .description('Summarize eligible, monitoring, and completed SEO experiments')
+  .option('--json', 'Output JSON')
+  .action(async (repository: string, options: { json?: boolean }) => {
+    try {
+      const summary = summarizeSeoExperiments(await loadSeoExperiments(repository));
+      if (options.json) {
+        console.log(JSON.stringify(summary, null, 2));
+      } else {
+        console.log(`Eligible ${summary.counts.eligible} | Monitoring ${summary.counts.monitoring} | Completed ${summary.counts.completed} | Observations ${summary.counts.observations}`);
+        if (summary.candidate) console.log(`Next candidate: ${summary.candidate.query.keyword} -> ${summary.candidate.query.targetPath}`);
+        for (const item of summary.monitoring) console.log(`Monitoring: ${item.keyword} until ${item.nextReviewDate}`);
+      }
+    } catch (error) {
+      console.error(`Error: ${(error as Error).message}`);
+      process.exitCode = 1;
+    }
+  });
+
 // ── hook command ──────────────────────────────────────────────────
 
 const hookCmd = program
@@ -456,7 +638,16 @@ hookCmd
     }
   });
 
-program.parse();
+if (shouldLaunchInteractive(process.argv.slice(2), Boolean(process.stdin.isTTY), Boolean(process.stdout.isTTY))) {
+  void runInteractive().then((result) => {
+    if (result.status === 'error') process.exitCode = 1;
+  }).catch((error) => {
+    console.error(chalk.red(`Error: ${(error as Error).message}`));
+    process.exitCode = 1;
+  });
+} else {
+  program.parse();
+}
 
 // ── Helpers ────────────────────────────────────────────────────────
 
@@ -498,27 +689,11 @@ function escapeRegExp(value: string): string {
   return value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 }
 
-function resolveTarget(target: string, isDir?: boolean): ScanTarget {
-  if (isDir) {
-    return { type: 'directory', path: target };
-  }
-  if (target.startsWith('http://') || target.startsWith('https://')) {
-    return { type: 'url', path: target };
-  }
-  const extension = extname(target).toLowerCase();
-  if (['.html', '.htm', '.md', '.mdx'].includes(extension)) {
-    return { type: 'file', path: target };
-  }
-  // Bare domain (contains a dot, no path separator) → treat as URL
-  if (target.includes('.') && !target.includes('/') && !target.includes('\\')) {
-    return { type: 'url', path: `https://${target}` };
-  }
-  // Looks like a local path — hint the user
-  if (target.startsWith('./') || target.startsWith('/') || target.startsWith('..')) {
-    throw new Error(`"${target}" looks like a local path. Use --dir flag: npx geoptimize scan ${target} --dir`);
-  }
-  // Fallback: assume URL with https
-  return { type: 'url', path: `https://${target}` };
+function optionalNumber(value: string | undefined, label: string): number | null {
+  if (value === undefined) return null;
+  const parsed = Number(value);
+  if (!Number.isFinite(parsed)) throw new Error(`${label} must be a number.`);
+  return parsed;
 }
 
 function detectSiteName(dir: string, report: ScanReport): string {

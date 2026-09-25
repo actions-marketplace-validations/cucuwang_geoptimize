@@ -29,3 +29,21 @@ The code-level gates are enforced by `npm run release:check`, `src/core/__tests_
 - awarding points for `llms.txt`, FAQ count, schema count, or a fixed meta-description length;
 - automatic deployment of generated JSON-LD or crawler policy;
 - adding more AI scorers and calling their average consensus.
+
+## v0.10 — Trust hardening (released)
+
+Repository preparation covers SHA-pinned Actions, minimal token permissions, a
+reusable release pipeline, OIDC preparation, tarball hashes/SPDX/attestations,
+dependency review, CodeQL, Dependabot, Scorecard and maintainer governance guidance.
+Version 0.10.0 is published with npm OIDC provenance, an SSH-signed immutable tag,
+SHA-256 checksums, an SPDX SBOM and a GitHub artifact attestation. OpenSSF Passing
+remains pending assessment. Bundled Action runtime evaluation is tracked separately
+to preserve the package-spec contract. See [release-v0.10](docs/release-v0.10.md).
+
+## v0.11 Guided terminal reports
+
+Version 0.11.0 adds a terminal menu for choosing a scan target and saving an offline
+HTML report. Explicit commands and the existing scoring and JSON contracts remain
+available. The release also updates supported dependencies and adds bounded npm
+visibility polling to the existing publication verifier. See the
+[v0.11 release runbook](docs/release-v0.11.md).
